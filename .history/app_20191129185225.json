@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "jioips-mobile-app",
+    "description": "React-native app built with expo, a starter project with splash screen, login form and custom drawer navigation.\n",
+    "slug": "jioips-mobile-app",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "githubUrl": "https://github.com/gabriel-TheCode/jioips-mobile-app/"
+  },
+  "name": "jioips-mobile-app"
+}

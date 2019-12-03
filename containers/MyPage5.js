@@ -62,14 +62,15 @@ const styles = StyleSheet.create({
 });
 
 
-export default Page5Stack = createStackNavigator({
+// export default Page5Stack = createStackNavigator({
 
-    MyPage5: {
-        screen: MyPage5,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: "My Page 5",
-            headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
-        })
-    },
+//     MyPage5: {
+//         screen: MyPage5,
+//         navigationOptions: ({ navigation }) => ({
+//             headerTitle: "My Page 5",
+//             headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+//         })
+//     },
 
-});
+// });
+export default MyPage5;

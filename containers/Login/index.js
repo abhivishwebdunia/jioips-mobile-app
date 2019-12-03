@@ -32,7 +32,7 @@ class Login extends ValidationComponent {
 
     console.log("login props", this.props, nextProps);
     if (this.props.authentication && this.props.authentication.loggedIn !== nextProps.authentication.loggedIn && nextProps.authentication.loggedIn === true) {
-      this.props.navigation.push("HomePage");
+      this.props.navigation.navigate("App");
     }
   }
 

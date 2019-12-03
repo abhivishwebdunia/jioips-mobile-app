@@ -63,14 +63,16 @@ const styles = StyleSheet.create({
 });
 
 
-export default Page3Stack = createStackNavigator({
+// export default Page3Stack = createStackNavigator({
 
-  MyPage3: {
-    screen: MyPage3,
-    navigationOptions: ({ navigation }) => ({
-      headerTitle: "My Page 3",
-      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
-    })
-  },
+//   MyPage3: {
+//     screen: MyPage3,
+//     navigationOptions: ({ navigation }) => ({
+//       headerTitle: "My Page 3",
+//       headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+//     })
+//   },
 
-});
+// });
+
+export default MyPage3;

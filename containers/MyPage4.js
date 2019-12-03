@@ -59,14 +59,16 @@ const styles = StyleSheet.create({
 });
 
 
-export default Page4Stack = createStackNavigator({
+// export default Page4Stack = createStackNavigator({
 
-  MyPage4: {
-    screen: MyPage4,
-    navigationOptions: ({ navigation }) => ({
-      headerTitle: "My Page 4",
-      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
-    })
-  },
+//   MyPage4: {
+//     screen: MyPage4,
+//     navigationOptions: ({ navigation }) => ({
+//       headerTitle: "My Page 4",
+//       headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+//     })
+//   },
 
-});
+// });
+
+export default MyPage4;

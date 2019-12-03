@@ -73,14 +73,16 @@ const styles = StyleSheet.create({
 });
 
 
-export default Page2Stack = createStackNavigator({
+// export default Page2Stack = createStackNavigator({
 
-  MyPage2: {
-    screen: MyPage2,
-    navigationOptions: ({ navigation }) => ({
-      headerTitle: "My Page 2",
-      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
-    })
-  },
+//   MyPage2: {
+//     screen: MyPage2,
+//     navigationOptions: ({ navigation }) => ({
+//       headerTitle: "My Page 2",
+//       headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+//     })
+//   },
 
-});
+// });
+
+export default MyPage2;

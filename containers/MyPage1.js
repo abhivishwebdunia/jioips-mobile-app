@@ -188,14 +188,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Page1Stack = createStackNavigator({
-
-  MyPage1: {
-    screen: MyPage1,
-    navigationOptions: ({ navigation }) => ({
-      headerTitle: "My Page 1",
-      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
-    })
-  },
-
-});
+export default MyPage1;

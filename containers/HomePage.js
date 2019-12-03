@@ -13,6 +13,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 let resizeMode = 'cover';
 
 class HomePage extends Component {
+  
   render() {
     return (
       <View
@@ -80,46 +81,18 @@ const styles = StyleSheet.create({
     marginTop: 100,
     borderRadius: 5
   },
-
   cardTitle: {
     fontSize: 22,
     color: '#000000',
     textAlign: 'center',
   },
-
+  
   cardText: {
     fontSize: 18,
     color: 'grey',
   }
+  
+  
+  });
 
-
-})
-
-const HomeStack = createStackNavigator({
-
-  HomePage: {
-    screen: HomePage,
-    navigationOptions: ({ navigation }) => ({
-      headerTitle: "Home Page",
-      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
-    })
-  },
-
-});
-
-
-const DrawerStack = createDrawerNavigator({
-  HomePage: { screen: HomeStack },
-  MyPage1: { screen: MyPage1 },
-  MyPage2: { screen: MyPage2 },
-  MyPage3: { screen: MyPage3 },
-  MyPage4: { screen: MyPage4 },
-  MyPage5: { screen: MyPage5 },
-},
-  {
-    gesturesEnabled: false,
-    contentComponent: DrawerContainer
-  })
-
-
-export default DrawerStack
+export default HomePage;

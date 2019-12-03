@@ -1,4 +1,4 @@
-import { loaderConstants } from '../Constants';
+import { loaderConstants } from '../constants';
 
 export const loaderActions = {
   show,

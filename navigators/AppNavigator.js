@@ -1,9 +1,9 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Splash from '../components/Splash';
-import Login from '../components/Login';
-import RegisterPage from '../components/RegisterPage';
+import Splash from '../containers/Splash';
+import Login from '../containers/Login';
+import RegisterPage from '../containers/RegisterPage';
 // /**
 //  * The root screen contains the application's navigation.
 //  *

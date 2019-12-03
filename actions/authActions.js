@@ -1,9 +1,8 @@
-import { authConstants } from '../Constants'
-import { httpService, encryptDecrypt, storageService } from '../Services'
+import { authConstants } from '../constants'
+import { httpService, encryptDecrypt, storageService } from '../services'
 import { loading, alertActions } from '.'
-import { history } from '../Helpers'
-import Config from 'react-native-config'
-import { showMessage, hideMessage } from 'react-native-flash-message'
+import { history } from '../helpers'
+import getEnvVars from '../environment';
 export const AuthActions = {
   login,
   logout,
@@ -16,7 +15,7 @@ function login(username, password) {
     dispatch(loading(true))
     dispatch(request({ username }))
     password = encryptDecrypt.sha512Encrypt(password)
-    let params = { userName: username, userPassword: password, appId: Config.APP_ID }
+    let params = { userName: username, userPassword: password, appId: getEnvVars().appId }
     console.log('PARAMS', params)
     httpService.apiPost('/login', params).then(
       (user) => {
@@ -30,6 +29,7 @@ function login(username, password) {
           dispatch(alertActions.error(user.message))  
         }
         dispatch(loading(false))
+        dispatch(alertActions.clear());  
       },
       (error) => {
         
@@ -38,6 +38,7 @@ function login(username, password) {
         dispatch(alertActions.error(error.toString()))
         dispatch(loading(false))
         console.log('lgin error ', error)
+        dispatch(alertActions.clear());
       }
     )
   }

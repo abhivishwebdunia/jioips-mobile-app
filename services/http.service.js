@@ -1,7 +1,8 @@
 import { AsyncStorage } from 'react-native'
-import { history } from '../Helpers'
-import Config from 'react-native-config'
-import { checkResponse } from '../Helpers/common'
+import { history } from '../helpers'
+import getEnvVars from '../environment';
+const Config = getEnvVars();
+import { checkResponse } from '../helpers/common'
 export const httpService = {
   apiGet,
   apiPost,
@@ -14,7 +15,7 @@ export const httpService = {
 function getHeaders() {
   let headers = { 'content-type': 'application/json', accept: 'application/json', customerid: '2' }
 
-  // headers['x-api-key'] = Config.REACT_APP_API_KEY
+  // headers['x-api-key'] = getEnvVars().REACT_APP_API_KEY
   // let authToken = AsyncStorage.getItem('authToken')
 
   // if (authToken) {
@@ -38,7 +39,7 @@ function rawApi(endPoint, method, headers = null) {
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
 function apiGet(endPoint, queryParams) {
-  endPoint = Config.REACT_APP_API_URL + endPoint
+  endPoint = getEnvVars().apiUrl + endPoint
   if (queryParams) {
     let par = Object.keys(queryParams)
       .map((key) => key + '=' + queryParams[key])
@@ -61,7 +62,7 @@ function apiPost(endPoint, data) {
     body: JSON.stringify(data),
   }
   console.log('Process env', Config)
-  endPoint = Config.REACT_APP_API_URL + endPoint
+  endPoint = getEnvVars().apiUrl + endPoint
   console.log('ENDOOPIBT', endPoint)
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
@@ -72,7 +73,7 @@ function apiPut(endPoint, data) {
     headers: getHeaders(),
     body: JSON.stringify(data),
   }
-  endPoint = Config.REACT_APP_API_URL + endPoint
+  endPoint = getEnvVars().apiUrl + endPoint
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
 
@@ -82,7 +83,7 @@ function apiDelete(endPoint) {
     method: 'DELETE',
     headers: getHeaders(),
   }
-  endPoint = Config.REACT_APP_API_URL + endPoint
+  endPoint = getEnvVars().apiUrl + endPoint
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
 

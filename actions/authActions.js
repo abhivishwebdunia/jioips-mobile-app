@@ -1,7 +1,7 @@
 import { authConstants } from '../constants'
 import { httpService, encryptDecrypt, storageService } from '../services'
 import { loading, alertActions } from '.'
-import { history } from '../helpers'
+
 import getEnvVars from '../environment';
 export const AuthActions = {
   login,
@@ -61,17 +61,20 @@ function logout() {
 
 function register(user) {
   return (dispatch) => {
+    dispatch(loading(true))
     dispatch(request(user))
 
     httpService.apiPost('', user).then(
       (user) => {
         dispatch(success())
-        history.push('/login')
+        
         dispatch(alertActions.success('Registration successful'))
+        dispatch(loading(false))
       },
       (error) => {
         dispatch(failure(error.toString()))
         dispatch(alertActions.error(error.toString()))
+        dispatch(loading(false))
       }
     )
   }

@@ -39,9 +39,9 @@ class LoaderComponent extends Component {
         const { children, ...attributes } = this.props;
 
     return (
-      <View>
+      <View style={[styles.loadingView]}>
         {this.props.loader.loading && (
-          <View style={[styles.container, styles.horizontal]}>
+          <View style={[styles.loading]}>
             <ActivityIndicator size="large" color="#0000ff" />
           </View>
         )}
@@ -59,13 +59,24 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(LoaderComponent)
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+  loading: {
+    position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            opacity: 0.5,
+            backgroundColor: 'black',
+            justifyContent: 'center',
+            alignItems: 'center'
   },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
+  loadingView: {
+    position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            justifyContent: 'center',
+            alignItems: 'center'
+  }
 })

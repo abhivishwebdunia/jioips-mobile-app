@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Splash from '../containers/Splash';
 import Login from '../containers/Login';
-import RegisterPage from '../containers/RegisterPage';
+import Register from '../containers/Register';
 import HomePage from '../containers/HomePage';
 import DrawerContainer from '../containers/DrawerContainer';
 import MyPage1 from '../containers/MyPage1';
@@ -49,7 +49,7 @@ const AuthStack = createStackNavigator({
 
 
   RegisterPage: {
-    screen: RegisterPage, navigationOptions: { headerTitle: "Register" }
+    screen: Register, navigationOptions: { headerTitle: "Register" }
 
   },
 

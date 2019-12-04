@@ -22,7 +22,7 @@ class AlertComponent extends Component {
     if(this.props.alert === null && this.props.alert !== nextProps.alert)
     {
       this.dropDownAlertRef.alertWithType(nextProps.alert.type, nextProps.alert.heading, nextProps.alert.message);
-      
+       
     }
   }
   render() {

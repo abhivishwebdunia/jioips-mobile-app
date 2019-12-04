@@ -58,6 +58,14 @@ export function checkResponse(resp) {
   return result;
 }
 
+
+export function inputValidation(validateRules,this2) {
+    Object.keys(validateRules).map(field => {
+       this2.validate({
+          [field]: validateRules[field]
+       })
+   })
+}
 export function checkStatus(statusCode) {
   statusCode = parseInt(statusCode);
   return (SucessCodes.indexOf(statusCode) !== -1);

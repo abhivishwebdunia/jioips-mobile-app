@@ -3,6 +3,7 @@ import {
   Image,
   View,
   Text,
+  Button,
   TextInput,
   Alert,
   TouchableOpacity,
@@ -13,15 +14,30 @@ import ValidationComponent from 'react-native-form-validator'
 
 import { AuthActions, alertActions } from '../../actions';
 import LoaderComponent from '../../components/LoaderComponent';
-
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import getEnvVars from '../../environment';
 import { styles } from './style';
 
-class Login extends ValidationComponent {
+const validationSchema = yup.object().shape({
+  userName: yup
+    .string()
+    .label('Username')
+    .min(6)
+    .required(),
+  userPassword: yup
+    .string()
+    .label('Password')
+    .required()
+    .min(6)
+    .max(15),
+});
+
+class Login extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
+    this.state={
       userName: '',
       userPassword: '',
     }
@@ -36,24 +52,12 @@ class Login extends ValidationComponent {
     }
   }
 
-  doLogin = () => {
 
-    let { userName, userPassword } = this.state
-    this.validate({
-      userName: { required: true, minlength: 6 },
-      userPassword: { required: true, minlength: 6 },
-    })
-
-    if (this.isFormValid()) {
-      this.props.dispatch(AuthActions.login(userName, userPassword))
-
-    }
+  doLogin = (values, actions) => {
+    this.props.dispatch(AuthActions.login(values.userName, values.userPassword))
 
   }
 
-  handleChange(name, value) {
-    this.setState({ [name]: value });
-  }
 
   render() {
     const resizeMode = 'cover';
@@ -98,7 +102,7 @@ class Login extends ValidationComponent {
           }}
         >
           <KeyboardAwareScrollView>
-          
+
             <LoaderComponent></LoaderComponent>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Image source={require('../../assets/logo.png')} style={styles.image} />
@@ -112,20 +116,37 @@ class Login extends ValidationComponent {
                 {text}
               </Text>
             </View>
+            <Formik
+              initialValues={{
+                userName: '',
+                userPassword: '',
+              }}
+              onSubmit={this.doLogin}
+              validationSchema={validationSchema}
+            >
+              {formikProps => (
 
-            <View style={styles.main}>
-              <TextInput underlineColorAndroid='transparent' name="userName" onChangeText={(e) => this.handleChange('userName', e)} style={styles.input} placeholder="Username" />
-              {this.isFieldInError('userName') && <Text>{this.getErrorsInField('userName')[0]}</Text>}
-              <TextInput underlineColorAndroid='transparent' name="userPassword" onChangeText={(e) => this.handleChange('userPassword', e)} style={styles.input} placeholder="Password" secureTextEntry={true} />
-              {this.isFieldInError('userPassword') && <Text>{this.getErrorsInField('userPassword')[0]}</Text>}
-              <TouchableOpacity style={styles.buttonContainer} onPress={() => this.doLogin()} >
-                <Text style={styles.buttonText}> Login </Text>
-              </TouchableOpacity>
+                <React.Fragment>
+                  <View style={styles.main}>
+                    <TextInput underlineColorAndroid='transparent' name="userName" value={formikProps.values.userName} onChangeText={formikProps.handleChange('userName')}
+                      onBlur={formikProps.handleBlur('email')} style={styles.input} placeholder="Username" />
+                    
+                      {formikProps.touched.userName && formikProps.errors.userName && <Text style={{ color: 'red' }}>{formikProps.errors.userName}</Text>}
+                    
+                    <TextInput underlineColorAndroid='transparent' name="userPassword" value={formikProps.values.userPassword} onChangeText={formikProps.handleChange('userPassword')}
+                      onBlur={formikProps.handleBlur('userPassword')} style={styles.input} placeholder="Password" secureTextEntry={true} />
+                    {formikProps.touched.userPassword && formikProps.errors.userPassword && <Text style={{ color: 'red' }}>{formikProps.errors.userPassword}</Text>}
+                    <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit} >
+                      <Text style={styles.buttonText}> Login </Text>
+                    </TouchableOpacity>
 
-              <TouchableOpacity style={styles.buttonContainer2} onPress={() => this.navigateToRegisterPage()}>
-                <Text style={styles.buttonText}> Register </Text>
-              </TouchableOpacity>
-            </View>
+                    <TouchableOpacity style={styles.buttonContainer2} onPress={() => this.props.navigation.navigate('RegisterPage')}>
+                      <Text style={styles.buttonText}> Register </Text>
+                    </TouchableOpacity>
+                  </View>
+                </React.Fragment>
+              )}
+            </Formik>
           </KeyboardAwareScrollView>
         </View>
 

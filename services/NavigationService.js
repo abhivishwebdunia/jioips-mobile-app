@@ -54,8 +54,9 @@ function navigateAndReset(routeName, params={}) {
   )
 }
 
-export default {
+const navigationService = {
   navigate,
   navigateAndReset,
   setTopLevelNavigator,
 }
+export default navigationService;

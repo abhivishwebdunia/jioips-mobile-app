@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from './stores'
 import AppNavigator from './navigators/AppNavigator';
 import AlertComponent from './components/AlertComponent';
+import LoaderComponent from './components/LoaderComponent';
 export default class App extends React.Component {
 
   constructor(props) {
@@ -21,6 +22,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <AlertComponent></AlertComponent>
+        <LoaderComponent></LoaderComponent>
         <AppNavigator screenProps={{store}}></AppNavigator>
       </Provider>
     )

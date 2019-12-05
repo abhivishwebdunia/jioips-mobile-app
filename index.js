@@ -6,5 +6,5 @@ import App from './App';
 if (__DEV__) {
   activateKeepAwake();
 }
-
+console.disableYellowBox = true;
 registerRootComponent(App);

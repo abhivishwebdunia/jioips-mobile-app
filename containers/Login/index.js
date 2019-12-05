@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import ValidationComponent from 'react-native-form-validator'
 
 import { AuthActions, alertActions } from '../../actions';
-import LoaderComponent from '../../components/LoaderComponent';
+import Background from '../Layout/Background';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import getEnvVars from '../../environment';
@@ -46,9 +46,10 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    console.log("login props", this.props, nextProps);
+    
     if (this.props.authentication && this.props.authentication.loggedIn !== nextProps.authentication.loggedIn && nextProps.authentication.loggedIn === true) {
-      this.props.navigation.navigate("App");
+      console.log("login props", this.props, nextProps);
+      this.props.navigation.push("HomePage");
     }
   }
 
@@ -73,26 +74,7 @@ class Login extends Component {
         }}
       >
 
-        <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-          }}
-        >
-
-          <Image
-            style={{
-              flex: 1,
-              resizeMode,
-            }}
-            source={require('../../assets/bg_app.png')}
-          />
-
-        </View>
-
+        <Background></Background>
 
         <View
           style={{
@@ -103,7 +85,7 @@ class Login extends Component {
         >
           <KeyboardAwareScrollView>
 
-            <LoaderComponent></LoaderComponent>
+            
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Image source={require('../../assets/logo.png')} style={styles.image} />
 

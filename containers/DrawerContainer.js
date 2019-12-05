@@ -2,13 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-
+import {storageService} from '../services/storage.service';
+import { AuthActions } from '../actions';
+import { connect } from 'react-redux'
 let iconSize = 25;
 
-export default class DrawerContainer extends React.Component {
+class DrawerContainer extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state={userData:null};
+  }
+
+  async componentWillMount(){
+
+    const userData = await storageService.getData('authData');
+    this.setState({userData:userData});
+    
   }
 
 
@@ -17,6 +27,12 @@ export default class DrawerContainer extends React.Component {
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
+  }
+
+  logout = () => async() => {
+    this.props.dispatch(AuthActions.logout());
+    await storageService.logoutSession();
+    this.props.navigation.navigate('Auth');
   }
 
 
@@ -52,12 +68,12 @@ export default class DrawerContainer extends React.Component {
                   />
                 </TouchableOpacity>
 
-                <Text style={{ color: 'white', fontSize: 14, marginTop: 10 }}>
-                  John Doe
-                </Text>
-                <Text style={{ color: 'white', fontSize: 14 }}>
-                  johndoe@gmail.com
-                </Text>
+                {this.state.userData && <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('Profile')}><Text style={{ color: 'white', fontSize: 14, marginTop: 10 }}>
+                  {this.state.userData.userDisplayName} ({this.state.userData.organizationName})
+                </Text></TouchableOpacity>}
+                {this.state.userData && <Text style={{ color: 'white', fontSize: 14 }}>
+                  {this.state.userData.userEmail}
+                </Text>}
 
               </View>
 
@@ -76,10 +92,10 @@ export default class DrawerContainer extends React.Component {
 
             <View style={styles.navSectionStyle}>
 
-              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage1')}>
+              {/* <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('Profile')}>
                 <Icon name='account' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Page 1</Text>
-              </TouchableOpacity>
+                <Text style={styles.navItemStyle} >Profile</Text>
+              </TouchableOpacity> */}
 
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage2')}>
                 <Icon name='clipboard-text' size={iconSize} style={styles.drawerIcon} />
@@ -102,9 +118,9 @@ export default class DrawerContainer extends React.Component {
                 <Text style={styles.navItemStyle} >Page 4</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage5')}>
+              <TouchableOpacity style={styles.drawerMenu} onPress={this.logout()}>
                 <Icon name='application' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Page 5</Text>
+                <Text style={styles.navItemStyle} >Logout</Text>
               </TouchableOpacity>
 
             </View>
@@ -157,3 +173,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fcc358',
   }
 })
+
+
+const mapStateToProps = (state) => {
+  return {
+    authentication: state.authentication,
+    
+  }
+}
+
+
+
+export default connect(mapStateToProps)(DrawerContainer)

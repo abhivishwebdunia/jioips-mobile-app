@@ -12,15 +12,25 @@ export const httpService = {
   logout,
 }
 
-function getHeaders() {
+async function getHeaders() {
   let headers = { 'content-type': 'application/json', accept: 'application/json', customerid: '2' }
 
   // headers['x-api-key'] = getEnvVars().REACT_APP_API_KEY
-  // let authToken = AsyncStorage.getItem('authToken')
+  let authToken = await AsyncStorage.getItem('authToken')
 
-  // if (authToken) {
-  //   headers['x-access-token'] = authToken
-  // }
+  if (authToken) {
+    headers['token'] = authToken
+  }
+  let organizationId = await AsyncStorage.getItem('organizationId')
+
+  if (organizationId) {
+    headers['organizationId'] = organizationId
+  }
+  let phoneId = await AsyncStorage.getItem('phoneId')
+
+  if (phoneId) {
+    headers['phoneId'] = phoneId
+  }
   return headers
 }
 
@@ -38,7 +48,7 @@ function rawApi(endPoint, method, headers = null) {
 
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
-function apiGet(endPoint, queryParams) {
+async function apiGet(endPoint, queryParams) {
   endPoint = getEnvVars().apiUrl + endPoint
   if (queryParams) {
     let par = Object.keys(queryParams)
@@ -48,17 +58,17 @@ function apiGet(endPoint, queryParams) {
   }
   const requestOptions = {
     method: 'GET',
-    headers: getHeaders(),
+    headers: await getHeaders(),
     cache: 'no-cache',
   }
 
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
 
-function apiPost(endPoint, data) {
+async function apiPost(endPoint, data) {
   const requestOptions = {
     method: 'POST',
-    headers: getHeaders(),
+    headers: await getHeaders(),
     body: JSON.stringify(data),
   }
   console.log('Process env', Config)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-
+import {storageService} from '../services/storage.service';
 
 export default class Splash extends Component {
 
@@ -11,12 +11,16 @@ export default class Splash extends Component {
             fontLoaded: false,
         };
     }
-    componentWillMount(){
-        this.props.navigation.navigate('Login');
-    }
 
-    componentDidMount(){
-        this.props.navigation.navigate('Login');
+
+    async componentDidMount(){
+        if(await storageService.isLoggedIn())
+        {
+            this.props.navigation.navigate('App');
+        }else{
+            this.props.navigation.navigate('Auth');
+        }
+        
     }
 
 

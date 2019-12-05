@@ -6,9 +6,9 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Splash from '../containers/Splash';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
-import HomePage from '../containers/HomePage';
+import Home from '../containers/Home';
 import DrawerContainer from '../containers/DrawerContainer';
-import MyPage1 from '../containers/MyPage1';
+import Profile from '../containers/Profile';
 import MyPage2 from '../containers/MyPage2';
 import MyPage3 from '../containers/MyPage3';
 import MyPage4 from '../containers/MyPage4';
@@ -19,25 +19,6 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 //  *
 //  * @see https://reactnavigation.org/docs/en/hello-react-navigation.html#creating-a-stack-navigator
 //  */
-// const StackNavigator = createStackNavigator(
-//   {
-//     // Create the application routes here (the key is the route name, the value is the target screen)
-//     // See https://reactnavigation.org/docs/en/stack-navigator.html#routeconfigs
-    
-//     LoginScreen: LoginScreen,
-//     ForgotPasswordScreen: ForgotPasswordScreen,
-//     DashboardScreen: DashboardScreen,
-//     // The main application screen is our "ExampleScreen". Feel free to replace it with your
-//     // own screen and remove the example.
-//   },
-//   {
-//     // By default the application will show the splash screen
-//     initialRouteName: 'LoginScreen',
-//     // See https://reactnavigation.org/docs/en/stack-navigator.html#stacknavigatorconfig
-//     headerMode: 'none',
-//   }
-// )
-
 
 
 
@@ -56,29 +37,29 @@ const AuthStack = createStackNavigator({
 
 });
 
-
+const HeaderLeft =(navigation)=> <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
 
 const DrawerStack = createDrawerNavigator({
   HomePage:  {
     screen: createStackNavigator({
 
       HomePage: {
-        screen: HomePage,
+        screen: Home,
         navigationOptions: ({ navigation }) => ({
           headerTitle: "Home Page",
-          headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+          headerLeft: HeaderLeft(navigation)
         })
       },
     
     })
   },
-  MyPage1: { screen: createStackNavigator({
+  Profile: { screen: createStackNavigator({
 
-    MyPage1: {
-      screen: MyPage1,
+    Profile: {
+      screen: Profile,
       navigationOptions: ({ navigation }) => ({
-        headerTitle: "MyPage1",
-        headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+        headerTitle: "Profile",
+        headerLeft: HeaderLeft(navigation)
       })
     },
   
@@ -90,7 +71,7 @@ const DrawerStack = createDrawerNavigator({
       screen: MyPage2,
       navigationOptions: ({ navigation }) => ({
         headerTitle: "MyPage2",
-        headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+        headerLeft: HeaderLeft(navigation)
       })
     },
   
@@ -102,7 +83,7 @@ const DrawerStack = createDrawerNavigator({
       screen: MyPage3,
       navigationOptions: ({ navigation }) => ({
         headerTitle: "MyPage3",
-        headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+        headerLeft: HeaderLeft(navigation)
       })
     },
   
@@ -114,7 +95,7 @@ const DrawerStack = createDrawerNavigator({
       screen: MyPage4,
       navigationOptions: ({ navigation }) => ({
         headerTitle: "MyPage4",
-        headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+        headerLeft: HeaderLeft(navigation)
       })
     },
   
@@ -126,7 +107,7 @@ const DrawerStack = createDrawerNavigator({
       screen: MyPage5,
       navigationOptions: ({ navigation }) => ({
         headerTitle: "MyPage5",
-        headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+        headerLeft: HeaderLeft(navigation)
       })
     },
   

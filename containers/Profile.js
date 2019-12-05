@@ -3,20 +3,27 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Body } from "native-base";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from 'react-navigation'
+import {storageService} from '../services/storage.service';
 
 
 
 
-
-class MyPage1 extends Component {
+class Profile extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+    this.state={userData:null};
   }
 
+  async componentWillMount(){
+    const userData = await storageService.getData('authData');
+    this.setState({userData:userData})
+  }
+
+  
 
   render() {
-
+    const {userData} = this.state;
     return (
 
       <View
@@ -62,20 +69,20 @@ class MyPage1 extends Component {
           />
 
           <Text style={styles.paragraph}>
-            John St. Patrick DOE
+            {userData && userData.userDisplayName}
             </Text>
           <Text style={styles.emailText}>
-            johndoe@gmail.com
+          {userData && userData.userEmail}
             </Text>
 
           <Card style={styles.card}>
             <CardItem>
               <Body>
                 <Text style={styles.cardTitle}>
-                  Date de naissance
+                  Organization Name
                 </Text>
                 <Text style={styles.cardText}>
-                  12.10.1975
+                {userData && userData.organizationName}
                 </Text>
               </Body>
             </CardItem>
@@ -85,41 +92,16 @@ class MyPage1 extends Component {
             <CardItem>
               <Body>
                 <Text style={styles.cardTitle}>
-                  Adresse
+                  Phone No
                 </Text>
                 <Text style={styles.cardText}>
-                  Douala Cameroun
+                {userData && userData.userPhone}
                 </Text>
               </Body>
             </CardItem>
           </Card>
 
-          <Card style={styles.card}>
-            <CardItem>
-              <Body>
-                <Text style={styles.cardTitle}>
-                  Matricule
-                </Text>
-                <Text style={styles.cardText}>
-                  ITHUY2019
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
-
-          <Card style={styles.card}>
-            <CardItem>
-              <Body>
-                <Text style={styles.cardTitle}>
-                  Numero de telephone
-                </Text>
-                <Text style={styles.cardText}>
-                  +237 691 694 965
-                  </Text>
-              </Body>
-            </CardItem>
-          </Card>
-
+         
         </View>
 
       </View>
@@ -188,4 +170,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default MyPage1;
+export default Profile;

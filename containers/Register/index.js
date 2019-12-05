@@ -15,7 +15,7 @@ const validationSchema = yup.object().shape({
       .string()
       .label('Name')
       .min(6)
-      .required(),
+      .matches(/^[a-zA-Z]+$/, {message: "Please enter valid value.", excludeEmptyString: false}),
     organizationName: yup
       .string()
       .label('Organization Name')
@@ -28,32 +28,30 @@ const validationSchema = yup.object().shape({
       .required(),  
     userName: yup
       .string()
-      .label('Userame')
+      .label('Username')
       .min(6)
       .required(),  
-      userEmail: yup
+    userEmail: yup
       .string()
       .label('Email')
       .min(6)
       .email()
-      .required(),  
-    name: yup
-      .string()
-      .label('Name')
-      .min(6)
       .required(),  
     password: yup
       .string()
       .label('Password')
       .required()
       .min(6)
-      .max(15),
+      .max(15).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {message: "Please enter valid password.", excludeEmptyString: false}),
+      
     confirmPassword: yup
       .string()
       .label('Confirm Password')
       .required()
       .min(6)
-      .max(15),
+      .max(15).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {message: "Please enter valid confirm password.", excludeEmptyString: false}).test('passwords-match', 'Passwords do not match', function(value) {
+        return this.parent.password === value;
+      }),
     userPhone: yup
       .string()
       .label('Phone No')
@@ -89,7 +87,19 @@ class Register extends Component {
     
       doSubmit = (values,actions) => {
         
+        this.props.dispatch(AuthActions.register(values))
       }
+
+      handleChange=(e,formikProps)=>{
+        e.persist();
+        if(formikProps.values.name && formikProps.values.organizationName && formikProps.values.name != "" && formikProps.values.organizationName != "")
+        {
+          formikProps.setFieldValue('userName',formikProps.values.name+"@"+formikProps.values.organizationName);
+        }
+        
+      }
+
+
    
 
     render() {
@@ -131,7 +141,7 @@ class Register extends Component {
                 >
                     <KeyboardAwareScrollView>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Image source={require('../../assets/logo.png')} style={styles.image} />
+                            {/* <Image source={require('../../assets/logo.png')} style={styles.image} /> */}
 
                             <Text
                                 style={{
@@ -145,6 +155,7 @@ class Register extends Component {
                         <Formik
               initialValues={this.state.formData}
               onSubmit={this.doSubmit}
+
               validationSchema={validationSchema}
             >
               {formikProps => (
@@ -152,15 +163,15 @@ class Register extends Component {
                 <React.Fragment>
                         <View style={styles.main}>
                             <Text>Name</Text>
-                            <TextInput underlineColorAndroid='transparent' value={formikProps.values.name} name="name" onChangeText={formikProps.handleChange('name')} onBlur={formikProps.handleBlur('name')} style={styles.input} placeholder="Name" />
+                            <TextInput underlineColorAndroid='transparent' value={formikProps.values.name} name="name" onChange={(e)=>this.handleChange(e,formikProps,'name')} onChangeText={formikProps.handleChange('name')} onBlur={formikProps.handleBlur('name')} style={styles.input} placeholder="Name" />
                             
                             <ErrorMessage component={Text} style={{color:'red'}} name="name"></ErrorMessage>
-                            <Text>Display Name</Text>
-                            <TextInput underlineColorAndroid='transparent' value={formikProps.values.organizationName} name="organizationName" onChangeText={formikProps.handleChange('organizationName')}  onBlur={formikProps.handleBlur('organizationName')} style={styles.input} placeholder="Organzaiotn Name" />
+                            <Text>Organization Name</Text>
+                            <TextInput underlineColorAndroid='transparent' value={formikProps.values.organizationName} onChange={(e)=>this.handleChange(e,formikProps,'organizationName')} name="organizationName" onChangeText={formikProps.handleChange('organizationName')}  onBlur={formikProps.handleBlur('organizationName')} style={styles.input} placeholder="Organzaiotn Name" />
                             <ErrorMessage component={Text} style={{color:'red'}} name="organizationName"></ErrorMessage>
 
 
-                            <Text>Organization Name</Text>
+                            <Text>Display Name</Text>
                             <TextInput underlineColorAndroid='transparent' value={formikProps.values.userDisplayName} name="userDisplayName" onChangeText={formikProps.handleChange('userDisplayName')}  onBlur={formikProps.handleBlur('userDisplayName')} style={styles.input} placeholder="Display Name" />
                             <ErrorMessage component={Text} style={{color:'red'}} name="userDisplayName"></ErrorMessage>
 
@@ -180,7 +191,7 @@ class Register extends Component {
                             
                             
                             <Text>UserName</Text>
-                            <TextInput underlineColorAndroid='transparent' disabled value={formikProps.values.userName} name="userName" onChangeText={formikProps.handleChange('userName')}  onBlur={formikProps.handleBlur('userName')} style={styles.input} placeholder="User Name" />
+                            <TextInput underlineColorAndroid='transparent' editable = {false} value={formikProps.values.userName} name="userName" onChangeText={formikProps.handleChange('userName')}  onBlur={formikProps.handleBlur('userName')} style={styles.input} placeholder="User Name" />
                             <ErrorMessage component={Text} style={{color:'red'}} name="userName"></ErrorMessage>
                             
                             

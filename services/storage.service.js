@@ -15,41 +15,61 @@ function setData(key, value) {
   if (typeof value === 'object') {
     value = JSON.stringify(value);
   }
-  AsyncStorage.setItem(key, value);
+  AsyncStorage.setItem(key, value.toString());
   logCurrentStorage();
 }
 
-function getData(key, value) {
+async function getData(key) {
   logCurrentStorage();
-  return AsyncStorage.getItem(key, value);
+  let data  = await AsyncStorage.getItem(key);
+  try{
+    data = JSON.parse(data); 
+  }catch(err)
+  {
+
+  }
   
+  return data;
 }
 
 function setLogin(loginData) {
   this.setData('authData', loginData)
   this.setData('authToken', loginData.token)
+  this.setData('phoneId', loginData.phoneLongId);
+  this.setData('organizationId', loginData.rootOrgId);
+  this.setData('organizationName', loginData.organizationName);
   logCurrentStorage()
 }
 
 function getLogin() {}
 
-function logoutSession() {
-  this.deleteData('authData')
-  this.deleteData('authToken')
+async function logoutSession() {
+  await this.deleteData('authData')
+  await this.deleteData('authToken')
+  await this.deleteData('phoneId');
+  await this.deleteData('organizationId');
+  await this.deleteData('organizationName');
   logCurrentStorage()
 }
 
-function isLoggedIn() {
-  if (AsyncStorage.getItem('authData')) {
+async function isLoggedIn() {
+
+  const authData = await AsyncStorage.getItem('authData');
+  const authToken = await AsyncStorage.getItem('authToken');
+  const phoneId = await AsyncStorage.getItem('phoneId');
+  console.log("IS LOGGED IN",authData)
+  if (authData && authData != null && authToken && phoneId) {
     return true
   }
   return false
 }
 
-function deleteData(key) {
-  AsyncStorage.removeItem(key)
+async function deleteData(key) {
+  await AsyncStorage.removeItem(key)
   logCurrentStorage()
 }
+
+
 
 
 function logCurrentStorage() {

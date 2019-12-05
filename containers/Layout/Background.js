@@ -25,7 +25,7 @@ class Background extends Component {
             }}
             source={require('../../assets/bg_app.png')}
           />
-          <LoaderComponent></LoaderComponent>
+          
         </View>
       
 

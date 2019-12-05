@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { css } from '@emotion/core'
-
+import Spinner from 'react-native-loading-spinner-overlay';
 // Another way to import. This is recommended to reduce bundle size
 const override = css`
   top: 50%;
@@ -36,14 +36,22 @@ class LoaderComponent extends Component {
   }
   render() {
     // eslint-disable-next-line
-        const { children, ...attributes } = this.props;
+    const { children, ...attributes } = this.props;
 
     return (
-      <View style={[styles.loadingView]}>
+      <View>
+        
         {this.props.loader.loading && (
-          <View style={[styles.loading]}>
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
+          <Spinner
+          visible={this.props.loader.loading}
+          textContent={'Loading...'}
+          textStyle={{
+            color: '#FFF'
+          }}
+          />
+          // <View style={[styles.loading]}>
+          //   <ActivityIndicator size="large" color="#0000ff" />
+          // </View>
         )}
       </View>
     )
@@ -61,22 +69,24 @@ export default connect(mapStateToProps)(LoaderComponent)
 const styles = StyleSheet.create({
   loading: {
     position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            opacity: 0.5,
-            backgroundColor: 'black',
-            justifyContent: 'center',
-            alignItems: 'center'
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    zIndex:9999999,
+    opacity: 0.5,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   loadingView: {
     position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            justifyContent: 'center',
-            alignItems: 'center'
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    zIndex:9999999,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

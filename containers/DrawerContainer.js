@@ -55,7 +55,7 @@ class DrawerContainer extends React.Component {
 
               <View style={{ marginLeft: 10 }}>
                 <TouchableOpacity>
-                  <Image source={require("../assets/icon.png")}
+                  <Image source={require("../assets/logo.png")}
                     style={{
                       borderWidth: 1,
                       borderColor: 'rgba(0,0,0,0.2)',

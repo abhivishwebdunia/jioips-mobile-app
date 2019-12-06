@@ -13,12 +13,11 @@ const defaultProps = {}
 class AlertComponent extends Component {
   constructor(props) {
     super(props)
-    console.log('AlertComponent.props', this.props)
     this.state = {}
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps AlertComponent', this.props, nextProps)
+    // console.log('componentWillReceiveProps AlertComponent', this.props, nextProps)
     if(this.props.alert === null && this.props.alert !== nextProps.alert)
     {
       this.dropDownAlertRef.alertWithType(nextProps.alert.type, nextProps.alert.heading, nextProps.alert.message);

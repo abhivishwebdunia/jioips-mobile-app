@@ -23,7 +23,7 @@ function setTopLevelNavigator(navigatorRef) {
  */
 function navigate(routeName, params={}) {
   navigator.dispatch(
-    NavigationActions.push({
+    NavigationActions.navigate({
       routeName,
       params,
     })

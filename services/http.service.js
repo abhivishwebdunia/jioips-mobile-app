@@ -3,6 +3,10 @@ import { history } from '../helpers'
 import getEnvVars from '../environment';
 const Config = getEnvVars();
 import { checkResponse } from '../helpers/common'
+
+
+import {storageService} from './storage.service';
+import NavigationService from './NavigationService';
 export const httpService = {
   apiGet,
   apiPost,
@@ -99,15 +103,19 @@ function apiDelete(endPoint) {
 
 function handleResponse(response) {
   try {
-    return response.text().then((text) => {
+    return response.text().then(async(text) => {
       const data = text && JSON.parse(text)
       let newResp = checkResponse(data);
-      console.log("newResp",newResp);
+      console.log("newRespds",newResp);
 
-      if (response.status === 401) {
+      if ((newResp.success == false && newResp.statusCode == 20038)) {
         // auto logout if 401 response returned from api
-        AsyncStorage.clear()
+        await storageService.logoutSession();
+        console.log("navigate to log");
+        NavigationService.navigate('Login');
+        
       }
+
       return Promise.resolve(newResp)
     })
   } catch (err) {

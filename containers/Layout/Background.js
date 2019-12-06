@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import LoaderComponent from '../../components/LoaderComponent';
+
 let resizeMode = 'cover';
 
 class Background extends Component {

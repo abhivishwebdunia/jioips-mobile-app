@@ -27,23 +27,26 @@ class LoaderComponent extends Component {
     super(props)
     console.log('this.props', this.props)
     this.state = {
-      loading: true,
+      loading: false,
     }
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('LOADER COMPOSNENT RECIREFE PROPS', this.props, nextProps)
+    if(this.props.loader.loading !== nextProps.loader.loading)
+    {
+        this.setState({loading:nextProps.loader.loading});
+    }
   }
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-
     return (
       <View>
         
-        {this.props.loader.loading && (
+        {this.state.loading && (
           <Spinner
-          visible={this.props.loader.loading}
+          visible={this.state.loading}
           textContent={'Loading...'}
           textStyle={{
             color: '#FFF'

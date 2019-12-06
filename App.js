@@ -3,6 +3,7 @@ import React from 'react';
 import { AppRegistry,View,Image } from 'react-native';
 import { Provider } from 'react-redux'
 import { store } from './stores'
+import NavigationService from './services/NavigationService';
 import AppNavigator from './navigators/AppNavigator';
 import AlertComponent from './components/AlertComponent';
 import LoaderComponent from './components/LoaderComponent';
@@ -25,7 +26,9 @@ export default class App extends React.Component {
         <AlertComponent></AlertComponent>
         <LoaderComponent></LoaderComponent>
        
-        <AppNavigator screenProps={{store}}></AppNavigator>
+        <AppNavigator ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }} screenProps={{store}}></AppNavigator>
       </Provider>
     )
    

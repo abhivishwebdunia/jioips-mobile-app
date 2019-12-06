@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux'
-import ValidationComponent from 'react-native-form-validator'
 
 import { AuthActions, alertActions } from '../../actions';
 import Background from '../Layout/Background';

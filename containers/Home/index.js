@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity,Picker } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity,Picker,Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux'
 import { Card, CardItem, Body } from "native-base";
@@ -10,7 +10,16 @@ import { loading, alertActions } from '../../actions';
 import {
   PieChart
 } from "react-native-chart-kit";
-
+const chartConfig = {
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5
+};
+const screenWidth = Dimensions.get("window").width;
 class Home extends Component {
   
   
@@ -28,7 +37,7 @@ class Home extends Component {
       {
         name: "Android",
         count: 0,
-        color: "#F00",
+        color: "#2dad0d",
         legendFontColor: "#7F7F7F",
         legendFontSize: 15
       },
@@ -42,7 +51,7 @@ class Home extends Component {
       {
         name: "Linux",
         count:0,
-        color: "#ffffff",
+        color: "#131112",
         legendFontColor: "#7F7F7F",
         legendFontSize: 15
       },
@@ -76,6 +85,7 @@ class Home extends Component {
     });
   }
 
+  
   getUserCount(){
     console.log("userCount");
     const {dispatch} = this.props;
@@ -84,29 +94,43 @@ class Home extends Component {
       console.log("user count response",response);
       if(response.success)
       {
-        let data = [];
-
-        console.log("Object.keys(response.data)",Object.keys(response.data))
-        await Object.keys(response.data).map((v)=>{
-          console.log("VV",v);
+        let userCount= this.state.userCount;
+        
+        const r  =  Object.keys(response.data).map((v)=>{
+          
+          let n = v.replace("Count","").toLowerCase();
+          
+          let i = this.state.userCount.findIndex(obj => {
+            return obj.name.toLowerCase() === n;
+          });
+          
+          userCount[i].count = parseInt(response.data[v]);
+          
+          
         });
-        this.setState({userCount:response.data});
-
+        Promise.all(r).then(() => {
+          this.setState({userCount:userCount});
+              
+          console.log("FINAL USER COUNT",this.state.userCount);  
+          dispatch(loading(false));
+        });
+        dispatch(loading(false));
+        
         
       }
-      dispatch(loading(false));
+      
     },(error)=>{
       dispatch(alertActions.error(error.toString()));
       dispatch(loading(false));
     });
   }
 
-  onSelectOrg = (itemValue, itemIndex) => () => {
+  onSelectOrg = (itemValue, itemIndex) => {
     console.log("on select org",itemValue);
     this.setState({orgId: itemValue});
     setTimeout(()=>{
       this.getUserCount();
-    },500);
+    },100);
   }
 
   render() {
@@ -132,16 +156,16 @@ class Home extends Component {
             <CardItem>
               <Body>
               <Text h4>USER LOGIN STATUS</Text> 
-              {/* <PieChart
-                data="{data}"
-                width="{screenWidth}"
-                height="{220}"
-                chartConfig="{chartConfig}"
-                accessor="population"
+              <PieChart
+                data={this.state.userCount}
+                width={screenWidth}
+                height={220}
+                chartConfig={chartConfig}
+                accessor="count"
                 backgroundColor="transparent"
                 paddingLeft="15"
                 absolute
-              />  */}
+              /> 
               </Body>
             </CardItem>
 

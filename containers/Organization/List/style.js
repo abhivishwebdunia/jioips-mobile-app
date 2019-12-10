@@ -4,13 +4,34 @@ export const styles = StyleSheet.create({
       flex: 1,
      
     },
-    
+    listItem: {
+      flex: 1,
+      flexDirection: "row",
+      borderBottomWidth: 1,
+      borderBottomColor: "#d6d7da",
+      padding: 6
+    },
+    imageWrapper: {
+      padding: 5
+    },
+    title: {
+      fontSize: 20,
+      textAlign: "left",
+      margin: 6
+    },
+    subtitle: {
+      fontSize: 10,
+      textAlign: "left",
+      margin: 6
+    },
+  
+  
     card: {
-      height: 350,
+      height: '100%',
       alignSelf: 'stretch',
       marginLeft: 20,
       marginRight: 20,
-      marginTop: 100,
+      marginTop: 10,
       borderRadius: 5
     },
     cardTitle: {

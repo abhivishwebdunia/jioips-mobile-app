@@ -84,7 +84,7 @@ class DrawerContainer extends React.Component {
             <View style={styles.navSectionStyle}>
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('HomePage')}>
                 <Icon name='home' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Home</Text>
+                <Text style={styles.navItemStyle} >Dashboard</Text>
               </TouchableOpacity>
             </View>
 
@@ -97,9 +97,9 @@ class DrawerContainer extends React.Component {
                 <Text style={styles.navItemStyle} >Profile</Text>
               </TouchableOpacity> */}
 
-              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage2')}>
+              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('Organizations')}>
                 <Icon name='clipboard-text' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle}>Page 2</Text>
+                <Text style={styles.navItemStyle}>Organizations</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage3')}>

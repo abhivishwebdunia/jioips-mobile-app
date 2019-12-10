@@ -35,9 +35,9 @@ export default class Splash extends Component {
                 <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center', }} >
                     <View style={{ justifyContent: 'center', alignItems: 'center', }}>
 
-                        <Image source={require('../assets/icon.png')} style={styles.image} />
+                        <Image source={require('../assets/logo.png')} style={styles.image} />
 
-                        <Text style={{ textAlign: 'center', fontSize: 18 }} > React Native Sample Drawer App </Text>
+                        <Text style={{ textAlign: 'center', fontSize: 18 }} > Jioips React Mobile App </Text>
 
                     </View>
 

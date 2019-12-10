@@ -7,6 +7,7 @@ import Splash from '../containers/Splash';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Home from '../containers/Home';
+import Organizations from '../containers/Organization/List';
 import DrawerContainer from '../containers/DrawerContainer';
 import Profile from '../containers/Profile';
 import MyPage2 from '../containers/MyPage2';
@@ -46,7 +47,7 @@ const DrawerStack = createDrawerNavigator({
       HomePage: {
         screen: Home,
         navigationOptions: ({ navigation }) => ({
-          headerTitle: "Home Page",
+          headerTitle: "Dashboard",
           headerLeft: HeaderLeft(navigation)
         })
       },
@@ -65,12 +66,12 @@ const DrawerStack = createDrawerNavigator({
   
   })
 } ,
-  MyPage2: { screen: createStackNavigator({
+Organizations: { screen: createStackNavigator({
 
-    MyPage2: {
-      screen: MyPage2,
+  Organizations: {
+      screen: Organizations,
       navigationOptions: ({ navigation }) => ({
-        headerTitle: "MyPage2",
+        headerTitle: "Organizations",
         headerLeft: HeaderLeft(navigation)
       })
     },

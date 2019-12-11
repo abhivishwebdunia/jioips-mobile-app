@@ -65,7 +65,7 @@ async function apiGet(endPoint, queryParams) {
     headers: await getHeaders(),
     cache: 'no-cache',
   }
-
+  console.log("request",endPoint,requestOptions);
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
 
@@ -77,7 +77,7 @@ async function apiPost(endPoint, data) {
   }
   console.log('Process env', Config)
   endPoint = getEnvVars().apiUrl + endPoint
-  console.log('ENDOOPIBT', endPoint)
+  console.log("request",endPoint,requestOptions);
   return fetch(endPoint, requestOptions).then(handleResponse)
 }
 

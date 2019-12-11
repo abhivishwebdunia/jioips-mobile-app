@@ -133,6 +133,8 @@ class Home extends Component {
     },100);
   }
 
+ 
+
   render() {
     return (
       <View
@@ -144,12 +146,12 @@ class Home extends Component {
 <Background></Background>
        <KeyboardAwareScrollView>
         <View style={styles.container}>
-          {this.state.orgList.length > 0 && <Picker
+          {this.state.orgList.length > 0 &&  <View style={{alignSelf:'center'}}><Picker
           selectedValue={this.state.orgId}
           style={{height: 50, width: 250}}
           onValueChange={this.onSelectOrg}>
             {this.state.orgList.map((data)=><Picker.Item label={data.organizationName} value={data.organizationId} key={data.organizationId} />)}
-          </Picker>}
+          </Picker></View>}
           
           <Card borderRadius={10} style={styles.card}>
             

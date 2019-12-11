@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
       alignSelf: 'stretch',
       marginLeft: 20,
       marginRight: 20,
-      marginTop: 100,
+      marginTop: 10,
       borderRadius: 5
     },
     cardTitle: {
